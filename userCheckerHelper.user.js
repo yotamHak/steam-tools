@@ -4,7 +4,6 @@
 // @include     http://www.steamgifts.com/user/*
 // @version     1
 // @grant       none
-// @author      justLynx
 // ==/UserScript==
 
 // add buttons to giveaway menu
@@ -27,3 +26,5 @@ $(function() {
 ' );
 
 });
+
+
