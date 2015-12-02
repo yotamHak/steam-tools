@@ -6,7 +6,7 @@
 // @grant       none
 // ==/UserScript==
 
-// add buttons to giveaway menu
+// Adds buttons to user profile
 $(function() {
   var newURL = window.location.pathname;
   var pathArray = window.location.pathname.split( '/' );
@@ -24,7 +24,6 @@ $(function() {
               </div> \
 \
 ' );
-
 });
 
 
