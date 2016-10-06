@@ -10,6 +10,7 @@ var TIMESTAMP_HEADER = "Added";
 var ON_UPDATE_HEADER = "Name";
 var OWN_STATUS_HEADER = "Own Status";
 var STEAM_URL_HEADER = "Steam URL";
+var CARDS_HEADER = "Cards";
 
 // Texts
 var MISSING_TEXT = "Missing";
@@ -32,11 +33,41 @@ function onEdit(event)
   headers = ss.getRange(1, 1, 1, ss.getLastColumn()).getValues();
   changedCell= event.source.getActiveRange().getA1Notation();
   
+  if(title == "" || title == undefined || changedCell.indexOf('A') === -1){
+    return;
+  }
+  
   addDateStamp(event);
-  handleBundled(event); 
+  handleBundled(event);
 }
 
-// Adds an Steam url---------------------------------------------------------------------
+// Checks if the game got cards and adds the result---------------------------------------------
+function checkIfGotCards(event, appId){
+  var url = "http://steamcommunity.com/profiles/" + STEAM_ID64 + "/gamecards/" + appId;
+  var url = "http://api.enhancedsteam.com/market_data/card_prices/?appid=" + appId;
+  
+  var options = {
+    "followRedirects": true,
+    "muteHttpExceptions":false
+  }
+  
+  var response = UrlFetchApp.fetch(url,options);
+  var text = response.getContentText();
+  
+  var urlCol = headers[0].indexOf(CARDS_HEADER);
+  var cell = ss.getRange(event.source.getActiveRange().getRow(), urlCol + 1);
+  
+  if (text.length > 0){
+    var link = "http://www.steamcardexchange.net/index.php?gamepage-appid-" + appId;
+    var displayName = "Have";
+    cell.setFormula("=hyperlink(\""+link+"\";\"" + displayName + "\")");
+  }
+  else{
+    cell.setValue("Missing");
+  }
+}
+
+// Adds an Steam url----------------------------------------------------------------------------
 function addSteamUrl(event, appId){
   var url = "http://store.steampowered.com/app/" + appId + "/";
   var urlCol = headers[0].indexOf(STEAM_URL_HEADER);
@@ -61,6 +92,7 @@ function getSteamOwnStatusAndSetIt(text, event){
   var appID = match[0];
   
   addSteamUrl(event, appID);
+  checkIfGotCards(event, appID);
   
   var data = {
     "steamid":STEAM_ID64,
@@ -108,11 +140,11 @@ function addDateStamp(event)
   var timestamp_format = "MM-dd-yyyy"; // Timestamp Format. 
   var updateColName = ON_UPDATE_HEADER;
   var timeStampColName = TIMESTAMP_HEADER;
-
+  
   var actRng = event.source.getActiveRange();
   var editColumn = actRng.getColumn();
   var index = actRng.getRowIndex();
-  var headers = ss.getRange(1, 1, 1, s.getLastColumn()).getValues();
+  var headers = ss.getRange(1, 1, 1, ss.getLastColumn()).getValues();
   var dateCol = headers[0].indexOf(timeStampColName);
   var updateCol = headers[0].indexOf(updateColName); updateCol = updateCol+1;
   if (dateCol > -1 && index > 1 && editColumn == updateCol) { // only timestamp if 'Last Updated' header exists, but not in the header row itself!
