@@ -43,7 +43,6 @@ function onEdit(event)
 
 // Checks if the game got cards and adds the result---------------------------------------------
 function checkIfGotCards(event, appId){
-  var url = "http://steamcommunity.com/profiles/" + STEAM_ID64 + "/gamecards/" + appId;
   var url = "http://api.enhancedsteam.com/market_data/card_prices/?appid=" + appId;
   
   var options = {
@@ -87,9 +86,9 @@ function addIsThereAnyDealUrl(event){
 
 // Checks to see if you own the game or not, needs STEAM_API_KEY and STEAM_ID64--------------------
 function getSteamOwnStatusAndSetIt(text, event){
-  var myRegexp = /([steampowered.com]*)(\d+)/g;
+  var myRegexp = /[steampowered.com/app/](\d+)[/]/g;
   var match = myRegexp.exec(text);
-  var appID = match[0];
+  var appID = match[1];
   
   addSteamUrl(event, appID);
   checkIfGotCards(event, appID);
