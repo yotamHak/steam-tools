@@ -1,8 +1,8 @@
 // Variables
 
 // Steam API
-var STEAM_API_KEY = "00D5B3E37E04C5E734BF1B98A3CA9ADE";
-var STEAM_ID64 = "76561197967370369";
+var STEAM_API_KEY = "";
+var STEAM_ID64 = "";
 
 // Headers
 var IS_THERE_ANY_DEAL_HEADER = "isthereanydeal URL";
