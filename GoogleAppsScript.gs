@@ -162,7 +162,8 @@ function _romanize (num) {
 function _encodeName(str){
   str = str.toLowerCase(); //lowercase
   str = str.replace(/[1-9]/g, _romanize);//_romanize digits
-  str = str.replace(/(^the[^a-z])|([^a-z]the[^a-z])|([^a-z]the$)/g, ""); //remove "the", but not e.g. "other" or "them"
+  //str = str.replace(/(^the[^a-z])|([^a-z]the[^a-z])|([^a-z]the$)/g, ""); //remove "the", but not e.g. "other" or "them"
+  str = str.replace(/([^a-z]the[^a-z])|([^a-z]the$)/g, ""); //remove "the", but not e.g. "other" or "them"
   str = str.replace(/\+/g, "plus");    //spell out "plus"
   str = str.replace(/\&/g, "and");    //spell out "and"
   str = str.replace(/[^a-z0]/g, '');    //remove remaining invalid characters, like spaces, braces, hyphens etc
