@@ -14,10 +14,10 @@
 const _fromCurrency = "RUB";
 
 // This is the TO currency variable
-const _toCurrency = "ILS";
+const _toCurrency = "USD";
 
 // This is the currency symbol
-const _toCurrencySymbol = "₪";
+const _toCurrencySymbol = "$";
 
 let _rate = null;
 
