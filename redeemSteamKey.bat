@@ -20,10 +20,7 @@ set "$DiscordWebHookUrl="
 set "$sessionid="
 
 set "$ContentType=Content-Type: application/x-www-form-urlencoded; charset=UTF-8"
-set "$Accept=accept: application/json"
-set "$Origin=Origin: https://store.steampowered.com"
 set "Cache=Cache-Control: no-cache"
-set "$ContentLength=Content-Length: 64"
 set "$Url=https://store.steampowered.com/account/ajaxregisterkey/"
 
 :: Activating on Steam
